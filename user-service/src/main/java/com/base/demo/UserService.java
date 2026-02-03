@@ -1,7 +1,5 @@
 package com.base.demo;
 
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 //@OpenAPIDefinition(
@@ -10,10 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //		}
 //)
 @SpringBootApplication
-public class OcrApplication {
+public class UserService {
 
 	public static void main(String[] args) {
-		SpringApplication.run(OcrApplication.class, args);
+		SpringApplication.run(UserService.class, args);
 	}
 
 }

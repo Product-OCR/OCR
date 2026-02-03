@@ -8,5 +8,6 @@
     <mapping directory="$PROJECT_DIR$/task-service" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/unit-service" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/user-service" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../unit-service" vcs="Git" />
   </component>
 </project>

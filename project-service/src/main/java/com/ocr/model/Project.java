@@ -39,9 +39,14 @@ public class Project extends BaseEntity {
     @Column(name = "approach_method", nullable = false)
     private String approachMethod;
 
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_manager_id")
     private Users projectManager;
+
+    @Column(name = "ocr_progres")
+    private Float ocrProgress;
+
+    @Column(name = "verification_progress")
+    private Float verificationProgress;
 
     @Column(name = "form")
     private Form form;

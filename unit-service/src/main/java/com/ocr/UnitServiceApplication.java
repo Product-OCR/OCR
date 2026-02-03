@@ -2,10 +2,12 @@ package com.ocr;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
-public class Main {
+@EnableFeignClients
+public class UnitServiceApplication {
     public static void main(String[] args) {
-        SpringApplication.run(Main.class, args);
+        SpringApplication.run(UnitServiceApplication.class, args);
     }
 }

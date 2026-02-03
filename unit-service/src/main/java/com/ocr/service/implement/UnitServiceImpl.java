@@ -1,6 +1,7 @@
 package com.ocr.service.implement;
 
 import com.ocr.dto.request.CreateUnitRequest;
+import com.ocr.dto.request.UnitFilterRequest;
 import com.ocr.dto.request.UpdateUnitRequest;
 import com.ocr.dto.response.*;
 import com.ocr.enums.ErrorCode;
@@ -9,10 +10,20 @@ import com.ocr.model.Unit;
 import com.ocr.repository.UnitRepository;
 import com.ocr.service.UnitService;
 import com.ocr.utils.UnitUtil;
+import jakarta.persistence.criteria.Predicate;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -161,6 +172,52 @@ public class UnitServiceImpl implements UnitService {
                 .result(response)
                 .code(ErrorCode.SUCCESS.getCode())
                 .message(ErrorCode.SUCCESS.getMessage())
+                .build();
+    }
+
+    @Override
+    public ApiResponse<Page<GetUnitsResponse>> getUnits(UnitFilterRequest unitFilterRequest, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(
+                page != null ? page : 0,
+                size != null ? size : 20,
+                Sort.by("createdAt").ascending()
+        );
+        Specification<Unit> spec = (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            // Thanh search tương đối (Keyword)
+            if (StringUtils.hasText(unitFilterRequest.getKeyword())) {
+                String keyword = "%" + unitFilterRequest.getKeyword().toLowerCase() + "%";
+                predicates.add(cb.or(
+                        cb.like(cb.lower(root.get("unitName")), keyword)
+                ));
+            }
+
+            if (unitFilterRequest.getTotalProject() != null) {
+                predicates.add(cb.equal(root.get("totalProjects"), unitFilterRequest.getTotalProject()));
+            }
+
+            // Từ ngày đến ngày (Ngày tạo)
+            if (unitFilterRequest.getFromDate() != null && unitFilterRequest.getToDate() != null) {
+                predicates.add(cb.between(root.get("createdAt"), unitFilterRequest.getFromDate(), unitFilterRequest.getToDate()));
+            }
+
+            return predicates.isEmpty() ? cb.conjunction() : cb.and(predicates.toArray(new Predicate[0]));
+        };
+        return ApiResponse.<Page<GetUnitsResponse>>builder()
+                .result(unitRepository.findAll(spec, pageable).map(this::getBuild))
+                .code(ErrorCode.SUCCESS.getCode())
+                .message(ErrorCode.SUCCESS.getMessage())
+                .build();
+    }
+    private GetUnitsResponse getBuild(Unit unit) {
+        return GetUnitsResponse.builder()
+                .totalProject(Long.valueOf(unit.getTotalProjects()))
+                .unitId(unit.getId())
+                .startDate(unit.getStartDate())
+                .endDate(unit.getEndDate())
+                .unitCode(unit.getUnitCode())
+                .unitName(unit.getUnitName())
                 .build();
     }
 

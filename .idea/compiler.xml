@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -9,6 +10,7 @@
         <module name="box-service" />
         <module name="task-service" />
         <module name="unit-service" />
+        <module name="common" />
         <module name="file-service" />
         <module name="project-service" />
       </profile>
@@ -22,14 +24,19 @@
         <module name="user-service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="unit-service (1)" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="box-service" options="-parameters" />
+      <module name="common" options="-parameters" />
       <module name="file-service" options="-parameters" />
       <module name="project-service" options="-parameters" />
       <module name="task-service" options="-parameters" />
       <module name="unit-service" options="-parameters" />
+      <module name="unit-service (1)" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>
   </component>
