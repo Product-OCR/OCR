@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+server:
+  port: 8081
+
+application:
+  security:
+    jwt:
+      public-key: ${JWT_PUBLIC_KEY}
+      private-key: ${JWT_PRIVATE_KEY}
+      expiration: ${JWT_EXPIRATION_IN_MS}
