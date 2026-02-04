@@ -27,7 +27,7 @@ public class Unit extends BaseEntity{
     private String unitName;
 
     @Column(name = "unit_code")
-    private String unitCode;//
+    private String unitCode;
 
     @Column(name = "total_projects")
     private Integer totalProjects;

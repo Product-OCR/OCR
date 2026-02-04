@@ -1,10 +1,9 @@
 package com.ocr.model;
 
-import com.ocr.enums.Form;
+import com.ocr.enums.Approach;
+import com.ocr.enums.ProjectStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import com.ocr.model.Users;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -12,10 +11,13 @@ import java.time.LocalDateTime;
 @Table(name = "projects")
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@Getter
+@Setter
 public class Project extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_seq_gen")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "project_seq_gen")
     @SequenceGenerator(
             name = "project_seq_gen",
             sequenceName = "project_sequence",
@@ -30,17 +32,21 @@ public class Project extends BaseEntity {
     @Column(name = "project_name", nullable = false)
     private String projectName;
 
+    @Column(name = "priject_code")
+    private String projectCode;
+
     @Column(name = "start_date")
     private LocalDateTime startDate;
 
     @Column(name = "end_date")
     private LocalDateTime endDate;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "approach_method", nullable = false)
-    private String approachMethod;
+    private Approach approachMethod;
 
-    @JoinColumn(name = "project_manager_id")
-    private Users projectManager;
+    @Column(name = "project_manager_id")
+    private Long projectManagerId;
 
     @Column(name = "ocr_progres")
     private Float ocrProgress;
@@ -48,6 +54,13 @@ public class Project extends BaseEntity {
     @Column(name = "verification_progress")
     private Float verificationProgress;
 
-    @Column(name = "form")
-    private Form form;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private ProjectStatus projectStatus;
+
+    @Column(name = "actual_finish_date")
+    private String actualFinishDate;
+
+    @Column(name = "note")
+    private String note;
 }

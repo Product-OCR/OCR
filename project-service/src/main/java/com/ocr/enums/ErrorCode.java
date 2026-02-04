@@ -15,8 +15,8 @@ public enum ErrorCode {
     USERNAME_ALREADY_EXISTS(1005, "Tên đăng nhập đã tồn tại", HttpStatus.BAD_REQUEST),
     ARGUMENT_NOT_VALID(1006, "Tham số đầu vào không hợp lệ", HttpStatus.BAD_REQUEST),
     INTERNAL_SERVER_ERROR(5000, "Lỗi máy chủ nội bộ", HttpStatus.INTERNAL_SERVER_ERROR),
-    ACCESS_DENIED(1007, "Bạn không có quyền truy cập tài nguyên này", HttpStatus.FORBIDDEN);
-
+    ACCESS_DENIED(1007, "Bạn không có quyền truy cập tài nguyên này", HttpStatus.FORBIDDEN),
+    PROJECT_NOT_EXISTED(1008, "Dự án không tồn tại", HttpStatus.BAD_REQUEST);
     private final int code;
     private final String message;
     private final HttpStatus httpStatus;
