@@ -1,0 +1,23 @@
+# Unified config - dev logic from application-dev.yaml
+spring:
+  datasource:
+    url: ${JDBC_DATABASE_URL:jdbc:postgresql://localhost:5432/ocr}
+    username: ${JDBC_DATABASE_USERNAME:postgres}
+    password: ${JDBC_DATABASE_PASSWORD:postgres}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+
+server:
+  port: ${SERVER_PORT:8080}
+
+application:
+  security:
+    jwt:
+      public-key: ${JWT_PUBLIC_KEY}
+      private-key: ${JWT_PRIVATE_KEY}
+      expiration: ${JWT_EXPIRATION_IN_MS:86400000}
