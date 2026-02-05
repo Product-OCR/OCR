@@ -1,0 +1,26 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Maven
+target/
+**/target/
+
+# Compiled files
+*.class
+*.jar
+
+#Project
+box-service/
+
+common/
+
+file-service/
+
+project-service/
+
+task-service/
+
+unit-service/
+
+user-service/
